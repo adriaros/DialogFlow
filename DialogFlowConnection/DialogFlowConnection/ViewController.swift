@@ -9,7 +9,9 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
+    @IBOutlet weak var textInput: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -41,11 +43,15 @@ class ViewController: UIViewController {
                 
             }
             }.resume()
+        
+        textInput.text = ""
     }
     
     @IBAction func PostButton(_ sender: Any) {
         
-        let parameters = ["username": "@kilo_loco", "tweet": "HelloWorld"]
+        let text = textInput.text
+        
+        let parameters = ["user": "adria", "message": text]
         
         guard let url = URL(string: "https://62ccd4d6.ngrok.io/post") else { return }
         var request = URLRequest(url: url)
