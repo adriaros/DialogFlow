@@ -2,19 +2,18 @@ package main
 
 import (
 	"github.com/marcossegovia/apiai-go"
-	"fmt"
 )
 
 // Dialog Flow required parameters
 var (
-	Token      = "566af48d6e7a48e88ed978c895ad88f5"
+	Token      = "3c25ae9299644ea596f8e89104d5d58e"
 	QueryLang  = "es"    //Default en
 	SpeechLang = "es-ES" //Default en-US
-	Sessionid  = "b2f1bfae-a5f6-45ff-8041-0c7666d0735e"
+	Sessionid  = "84641b96-775b-452c-b87e-fd6d8a588385"
 )
 
 // Dialog Flow main connection
-func initDialogFlow(){
+func initDialogFlow() (*apiai.ApiClient, error) {
 
 	client, err := apiai.NewClient(
 		&apiai.ClientConfig{
@@ -23,14 +22,24 @@ func initDialogFlow(){
 			SpeechLang: SpeechLang,
 		},
 	)
+
 	if err != nil {
-		fmt.Printf("%v", err)
+		return client, err
 	}
 
-	qr, err := client.Query(apiai.Query{Query: []string{"Hola"}, SessionId: Sessionid})
+	return client, nil
+}
+
+func dialogFlowQuery(cl *apiai.ApiClient, qr string) (string, error){
+
+	resp, err := cl.Query(apiai.Query{Query: []string{"Enviar 1 euro a Adrià Ros con concepto Cena"}, SessionId: Sessionid})
+
 	if err != nil {
-		fmt.Printf("%v", err)
+		return "Something is wrong. Please check the required dialog flow parameters.", err
 	}
-	fmt.Printf("%v", qr.Result.Fulfillment.Speech)
+
+	r := resp.Result.Fulfillment.Speech
+
+	return r, nil
 
 }

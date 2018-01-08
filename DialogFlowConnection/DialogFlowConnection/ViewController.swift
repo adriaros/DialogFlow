@@ -24,7 +24,7 @@ class ViewController: UIViewController {
 
     @IBAction func GetButton(_ sender: Any) {
         
-        guard let url = URL(string: "https://62ccd4d6.ngrok.io") else { return }
+        guard let url = URL(string: "https://fe9eda40.ngrok.io/") else { return }
         
         let session = URLSession.shared
         session.dataTask(with: url) { (data, response, error) in
@@ -53,7 +53,7 @@ class ViewController: UIViewController {
         
         let parameters = ["user": "adria", "message": text]
         
-        guard let url = URL(string: "https://62ccd4d6.ngrok.io/post") else { return }
+        guard let url = URL(string: "https://fe9eda40.ngrok.io/post") else { return }
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
